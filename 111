@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace BinaryTrees {
+	public class NodeOfTrees < T > where T: IComparable {
+		public T Value;
+		public NodeOfTrees < T > Right,
+		Left;
+	}
+	public class BinaryTree < T > where T: IComparable {
+		public NodeOfTrees < T > Root;
+		public void Add(T elemKey) {
+			if (Equals(Root, null)) Root = new NodeOfTrees < T > {
+				Value = elemKey
+			};
+			else {
+				var currentlyNode = Root;
+				var value = Root;
+				while (!Equals(currentlyNode, null)) {
+					value = currentlyNode;
+					currentlyNode = currentlyNode.Value.CompareTo(elemKey) < 0 ? currentlyNode.Right: currentlyNode.Left;
+				}
+				if (value.Value.CompareTo(elemKey) < 0) value.Right = new NodeOfTrees < T > {
+					Value = elemKey
+				};
+				else value.Left = new NodeOfTrees < T > {
+					Value = elemKey
+				};
+			}
+		}
+		public bool Contains(T key) {
+			var currentlyNode = Root;
+			while (!Equals(currentlyNode, null)) {
+				if (currentlyNode.Value.CompareTo(key) == 0) return true;
+				currentlyNode = currentlyNode.Value.CompareTo(key) < 0 ? currentlyNode.Right: currentlyNode.Left;
+			}
+			return false;
+		}
+	}
+}
